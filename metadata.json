@@ -1,0 +1,6 @@
+{
+  "name": "App Developer Portal",
+  "description": "An interactive workspace to conceptualize, design, and build full-featured React and Tailwind web applications.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

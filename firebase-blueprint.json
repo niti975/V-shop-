@@ -1,0 +1,58 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "Represents a user/merchant with custom handles",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "description": "The unique user identifier" },
+        "handle": { "type": "string", "description": "The unique custom handle e.g. @nitish_rawat" },
+        "displayName": { "type": "string", "description": "The display name of the user" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Creation timestamp" }
+      },
+      "required": ["uid", "handle", "displayName", "createdAt"]
+    },
+    "Seller": {
+      "title": "Seller",
+      "description": "Represents a verified seller with KYC verification status",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "description": "The unique seller/user identifier" },
+        "kycStatus": { "type": "string", "enum": ["None", "Pending", "Approved", "Rejected"], "description": "KYC Identity verification status" },
+        "verifyStatus": { "type": "string", "enum": ["None", "Blue", "Purple", "Green"], "description": "Pillar 2 Badge Verification status" },
+        "kycVerifiedAt": { "type": "string", "format": "date-time", "description": "Timestamp when KYC was completed or approved" }
+      },
+      "required": ["uid", "kycStatus", "verifyStatus"]
+    },
+    "Shop": {
+      "title": "Shop",
+      "description": "Represents a merchant's shop registry with category locks",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Unique shop identifier" },
+        "ownerUid": { "type": "string", "description": "Owner user identifier" },
+        "shopName": { "type": "string", "description": "The registered company style or shop name" },
+        "category": { "type": "string", "enum": ["Ethnic Apparel", "Traditions Wear", "Modern Apparel", "Handlooms Handicraft"], "description": "Selected business category" },
+        "isLocked": { "type": "boolean", "description": "Enforced category updates lock if verified" },
+        "catalogCount": { "type": "number", "description": "Total catalog item listing count" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Creation timestamp" },
+        "updatedAt": { "type": "string", "format": "date-time", "description": "Last update timestamp" }
+      },
+      "required": ["id", "ownerUid", "shopName", "category", "isLocked", "catalogCount"]
+    }
+  },
+  "firestore": {
+    "users/{userId}": {
+      "schema": "User",
+      "description": "User custom handle mapping and profile info"
+    },
+    "sellers/{sellerId}": {
+      "schema": "Seller",
+      "description": "Seller KYC and Badge status credentials"
+    },
+    "shops/{shopId}": {
+      "schema": "Shop",
+      "description": "Shop registry details with category locks"
+    }
+  }
+}
